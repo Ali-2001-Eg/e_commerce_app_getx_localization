@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../models/facebook-model.dart';
@@ -20,6 +21,10 @@ class AuthController extends GetxController {
 
   var googleSignIn = GoogleSignIn();
   FacebookModel? facebookModel;
+
+  var isSignedIn = false;
+  final GetStorage authBox = GetStorage();
+
 
   changeSuffixIcon() {
     isPasswordShown.value = !isPasswordShown.value;
@@ -76,6 +81,8 @@ class AuthController extends GetxController {
           .then((value) {
         auth.currentUser!.email;
       });
+      isSignedIn = true;
+      authBox.write('auth', isSignedIn);
       update();
       Get.offNamed(AppRoutes.main);
     } on FirebaseAuthException catch (e) {
@@ -93,8 +100,13 @@ class AuthController extends GetxController {
             barBlur: 5);
       }
     } catch (e) {
-      print(e);
+      Get.snackbar(
+          'Network Error Please Try again', e.toString(),
+          backgroundColor: languageSettings,
+          colorText: Colors.white70,
+          barBlur: 5);
     }
+
   }
 
   void resetPassword({required String email}) async {
@@ -121,6 +133,8 @@ class AuthController extends GetxController {
       displayUserName = googleUser!.displayName!;
       displayUserPhoto = googleUser.photoUrl!;
       print(googleUser.email);
+      isSignedIn = true;
+      authBox.write('auth', isSignedIn);
       update();
       Get.offNamed(AppRoutes.main);
     } catch (e) {
@@ -138,6 +152,8 @@ class AuthController extends GetxController {
       if(loginResult.status == LoginStatus.success){
         final data = await FacebookAuth.instance.getUserData();
         facebookModel = FacebookModel.fromJson(data);
+        isSignedIn = true;
+        authBox.write('auth', isSignedIn);
         update();
         Get.offNamed(AppRoutes.main);
       }
@@ -151,5 +167,24 @@ class AuthController extends GetxController {
     }
   }
 
-  void signOutFirebase() {}
-}
+  Future<void> signOut() async{
+    try{
+      await auth.signOut();
+      await googleSignIn.signOut();
+      // await FacebookAuth.i.logOut();
+      displayUserName = '';
+      displayUserPhoto = '';
+      isSignedIn = false;
+      authBox.remove('auth');
+      update();
+      Get.offNamed(Routes.welcome);
+    }catch(e){
+      Get.snackbar(
+          'Error!', e.toString().replaceAll(RegExp('-'), ' ').capitalize!,
+          backgroundColor: languageSettings,
+          colorText: Colors.white70,
+          barBlur: 5);
+    }
+    }
+  }
+

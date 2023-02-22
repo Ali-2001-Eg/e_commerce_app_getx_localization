@@ -24,7 +24,7 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.grey.shade200,
+        backgroundColor: context.theme. backgroundColor,
         resizeToAvoidBottomInset: true,
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),

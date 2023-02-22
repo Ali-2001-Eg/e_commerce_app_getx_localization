@@ -17,7 +17,7 @@ class ForgotPasswordScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: context.theme. backgroundColor,
           title: const Text(
             'Forgot Password',
             style: TextStyle(

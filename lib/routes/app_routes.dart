@@ -4,6 +4,8 @@ import 'package:e_commerce_app_with_firebase/view/screens/auth/sign_in_page.dart
 import 'package:e_commerce_app_with_firebase/view/screens/auth/sign_up_page.dart';
 import 'package:e_commerce_app_with_firebase/view/screens/main_page.dart';
 import 'package:get/get.dart';
+import '../logic/bindings/main_binding.dart';
+import '../logic/bindings/products_binding.dart';
 import '../view/screens/welcome_page.dart';
 
 class AppRoutes {
@@ -21,7 +23,7 @@ class AppRoutes {
         name: forgotPass,
         page: () => ForgotPasswordScreen(),
         binding: AuthBinding()),
-    GetPage(name: main, page: () => MainScreen(), binding: AuthBinding()),
+    GetPage(name: main, page: () => MainScreen(), bindings: [AuthBinding(),MainBinding(),ProductsBinding()]),
   ];
 }
 

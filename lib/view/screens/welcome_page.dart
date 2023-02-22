@@ -80,7 +80,9 @@ class WelcomeScreen extends StatelessWidget {
                   height: 250,
                 ),
                 ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.offNamed(Routes.login);
+                    },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
