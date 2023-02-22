@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "560855425567",
+    "project_id": "ali-shop-ea433",
+    "storage_bucket": "ali-shop-ea433.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:560855425567:android:2a266d150c26c7f9ecab2a",
+        "android_client_info": {
+          "package_name": "com.example.e_commerce_app_with_firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "560855425567-1fttjr7a9cl22bb3dvs9msp01j3hobeg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAY5Ypkr2bukCtxxoh6T3q3FuJhWon_hmc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "560855425567-1fttjr7a9cl22bb3dvs9msp01j3hobeg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
