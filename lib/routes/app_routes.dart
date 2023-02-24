@@ -6,6 +6,7 @@ import 'package:e_commerce_app_with_firebase/view/screens/main_page.dart';
 import 'package:get/get.dart';
 import '../logic/bindings/main_binding.dart';
 import '../logic/bindings/products_binding.dart';
+import '../view/screens/cart_page.dart';
 import '../view/screens/welcome_page.dart';
 
 class AppRoutes {
@@ -14,6 +15,7 @@ class AppRoutes {
   static const signUp = Routes.register;
   static const forgotPass = Routes.forgotPassword;
   static const main = Routes.mainScreen;
+  static const cart = Routes.cartScreen;
 
   static final routes = <GetPage>[
     GetPage(name: welcome, page: () => const WelcomeScreen()),
@@ -23,7 +25,11 @@ class AppRoutes {
         name: forgotPass,
         page: () => ForgotPasswordScreen(),
         binding: AuthBinding()),
-    GetPage(name: main, page: () => MainScreen(), bindings: [AuthBinding(),MainBinding(),ProductsBinding()]),
+    GetPage(
+        name: main,
+        page: () => MainScreen(),
+        bindings: [AuthBinding(), MainBinding(), ProductsBinding()]),
+    GetPage(name: cart, page: ()=>  CartScreen(),bindings: [ProductsBinding(),]),
   ];
 }
 
@@ -33,4 +39,5 @@ class Routes {
   static const register = '/sign-up';
   static const forgotPassword = '/forgot-password';
   static const mainScreen = '/main-screen';
+  static const cartScreen = '/cart-screen';
 }

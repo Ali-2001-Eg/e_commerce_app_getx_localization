@@ -1,3 +1,4 @@
+import 'package:e_commerce_app_with_firebase/logic/controllers/products_controller.dart';
 import 'package:e_commerce_app_with_firebase/routes/app_routes.dart';
 import 'package:e_commerce_app_with_firebase/utils/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(ProductsController());
     return GetMaterialApp(
       title: 'Ali Shop',
       debugShowCheckedModeBanner: false,

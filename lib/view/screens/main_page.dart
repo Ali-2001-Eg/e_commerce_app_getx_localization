@@ -1,8 +1,10 @@
+import 'package:e_commerce_app_with_firebase/routes/app_routes.dart';
 import 'package:e_commerce_app_with_firebase/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import '../../logic/controllers/main_controller.dart';
+import 'cart_page.dart';
 
 class MainScreen extends StatelessWidget {
   MainScreen({Key? key}) : super(key: key);
@@ -20,7 +22,7 @@ class MainScreen extends StatelessWidget {
               actions: [
                 IconButton(
                     onPressed: () {
-
+                      Get.toNamed(Routes.cartScreen);
                     },
                     icon: Image.asset('assets/images/shop.png'))
               ],

@@ -6,5 +6,4 @@ class ProductsBinding extends Bindings{
   void dependencies() {
     Get.put(ProductsController());
   }
-
 }
