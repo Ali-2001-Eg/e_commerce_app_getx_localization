@@ -1,3 +1,4 @@
+import 'package:e_commerce_app_with_firebase/logic/controllers/cart_controller.dart';
 import 'package:e_commerce_app_with_firebase/models/products_model.dart';
 import 'package:e_commerce_app_with_firebase/utils/theme.dart';
 import 'package:e_commerce_app_with_firebase/view/widgets/text_utils.dart';
@@ -9,7 +10,7 @@ import '../../logic/controllers/products_controller.dart';
 class CardItems extends StatelessWidget {
   CardItems({Key? key}) : super(key: key);
   final ProductsController controller = Get.put(ProductsController());
-
+  final cartController = Get.find<CartController>();
   @override
   Widget build(BuildContext context) {
     print(controller.productList.length);
@@ -37,6 +38,7 @@ class CardItems extends StatelessWidget {
                   price: controller.productList[index].price,
                   rate: controller.productList[index].rating.rate,
                   productId: controller.productList[index].id,
+                productsModel: controller.productList[index],
               )),
         );
       }
@@ -44,7 +46,7 @@ class CardItems extends StatelessWidget {
   }
 
   Widget _buildCardItems(
-      {required String imgPath, required double price, required double rate,required int productId}) {
+      {required String imgPath, required double price, required double rate,required int productId,required ProductsModel productsModel}) {
     return Padding(
       padding: const EdgeInsets.all(5),
       child: Container(
@@ -73,10 +75,12 @@ class CardItems extends StatelessWidget {
                         color: Get.isDarkMode ? controller.isFavourite(productId)?Colors.red:Colors.white : Colors.red,
                       )),
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                      cartController.addProductsToCart(productsModel);
+                      },
                       icon: Icon(
-                        Icons.add,
-                        color: Get.isDarkMode ? Colors.white : Colors.black45,
+                        Icons.shopping_cart,
+                        color: Get.isDarkMode ? Colors.white : Colors.black,
                       ))
                 ],
               ),

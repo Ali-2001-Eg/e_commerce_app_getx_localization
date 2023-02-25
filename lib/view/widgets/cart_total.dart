@@ -2,17 +2,19 @@ import 'package:e_commerce_app_with_firebase/view/widgets/text_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../logic/controllers/cart_controller.dart';
 import '../../utils/theme.dart';
 
 class CartTotal extends StatelessWidget {
-  const CartTotal({Key? key}) : super(key: key);
+  const   CartTotal({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<CartController>();
     return Container(
       padding: const EdgeInsets.all(20),
       width: MediaQuery.of(context).size.width,
-      decoration: const BoxDecoration(
+      decoration:  BoxDecoration(
         color: Colors.white70,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(15),
@@ -20,7 +22,7 @@ class CartTotal extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.white70,
+            color:Get.isDarkMode?Colors.black54 : Colors.white70,
             blurRadius: 6,
             spreadRadius: 3,
             blurStyle: BlurStyle.normal
@@ -36,15 +38,15 @@ class CartTotal extends StatelessWidget {
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: Get.isDarkMode? pinkClr.withOpacity(0.7):mainColor),
-              Text(
-                '\$ 650.08',
+              Obx(() => Text(
+                '\$ ${controller.totalPrice.toString()}',
                 style: TextStyle(
                     color: Get.isDarkMode? Colors.black:mainColor,
 
-                  fontSize: 20,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     height: 1.5),
-              ),
+              )),
             ],
           ),
           const SizedBox(
@@ -55,7 +57,9 @@ class CartTotal extends StatelessWidget {
               height: 60,
               child: ElevatedButton.icon(
 
-                  onPressed: () {},
+                  onPressed: () {
+
+                  },
                   style: ElevatedButton.styleFrom(
 
                     shape: RoundedRectangleBorder(

@@ -44,7 +44,8 @@ dependencies:
   firebase_core: ^1.10.2
   firebase_core_platform_interface: 4.5.1
   flutter_facebook_auth: ^5.0.7
-
+  smooth_page_indicator: ^1.0.1
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:

@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      backgroundColor: context.theme.backgroundColor,
+      backgroundColor: context.theme.colorScheme.background,
       body: Column(
         children: [
           Container(
@@ -30,24 +30,24 @@ class HomeScreen extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TextUtils(
+                children: const [
+                   TextUtils(
                       text: 'Find Your',
                       color: Colors.white,
                       fontWeight: FontWeight.w300,
                       fontSize: 25),
-                  const SizedBox(
+                   SizedBox(
                     height: 5,
                   ),
-                  TextUtils(
+                   TextUtils(
                       text: 'INSPIRATION',
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 30),
-                  const SizedBox(
+                   SizedBox(
                     height: 20,
                   ),
-                  const SearchTextForm(),
+                   SearchTextForm(),
                 ],
               ),
             ),

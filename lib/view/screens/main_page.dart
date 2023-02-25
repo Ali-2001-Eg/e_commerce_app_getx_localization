@@ -1,3 +1,4 @@
+import 'package:e_commerce_app_with_firebase/logic/controllers/cart_controller.dart';
 import 'package:e_commerce_app_with_firebase/routes/app_routes.dart';
 import 'package:e_commerce_app_with_firebase/utils/theme.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'cart_page.dart';
 class MainScreen extends StatelessWidget {
   MainScreen({Key? key}) : super(key: key);
   var controller = Get.find<MainController>();
+  var cartController = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +23,29 @@ class MainScreen extends StatelessWidget {
               centerTitle: true,
               actions: [
                 IconButton(
-                    onPressed: () {
+                  onPressed: () {
+                    if(cartController.productsMap.isEmpty){
+                      Get.snackbar('Empty!', 'Please Add some Products to cart',
+                          backgroundColor: languageSettings,
+                          colorText: Colors.white70,
+                          barBlur: 5);
+                    }
+                   else {
                       Get.toNamed(Routes.cartScreen);
-                    },
-                    icon: Image.asset('assets/images/shop.png'))
+                    }
+                  },
+                  icon: Badge(
+
+                    label: Text(cartController.productsMap.isEmpty
+                        ? '0'
+                        : cartController.productsMap.values
+                            .toList()
+                            .reduce((value, element) => value + element)
+                            .toString()),
+
+                    child: Image.asset('assets/images/shop.png'),
+                  ),
+                )
               ],
               backgroundColor: Get.isDarkMode ? darkGreyClr : mainColor,
               elevation: 0,

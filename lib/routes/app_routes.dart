@@ -29,7 +29,7 @@ class AppRoutes {
         name: main,
         page: () => MainScreen(),
         bindings: [AuthBinding(), MainBinding(), ProductsBinding()]),
-    GetPage(name: cart, page: ()=>  CartScreen(),bindings: [ProductsBinding(),]),
+    GetPage(name: cart, page: ()=>  CartScreen(),bindings: [ProductsBinding(),AuthBinding(),]),
   ];
 }
 
