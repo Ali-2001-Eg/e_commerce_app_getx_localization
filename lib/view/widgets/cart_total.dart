@@ -16,7 +16,7 @@ class CartTotal extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       decoration:  BoxDecoration(
         color: Colors.white70,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(15),
           topRight: Radius.circular(15)
         ),
