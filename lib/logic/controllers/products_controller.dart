@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -9,14 +10,19 @@ class ProductsController extends GetxController {
   var favouriteList = <ProductsModel>[].obs;
   var isLoading = true.obs;
   var storage = GetStorage();
+
+  var searchList = <ProductsModel>[].obs;
+  TextEditingController searchController = TextEditingController();
 //required to get all products
   @override
   void onInit() {
     getAllProducts();
-    List? storedFavouriteProducts= storage.read<List>('favourite');
+    List? storedFavouriteProducts = storage.read<List>('favourite');
     //required to save a list in get storage
-    if(storedFavouriteProducts != null){
-      favouriteList.value = storedFavouriteProducts.map((e) => ProductsModel.fromJson(e)).toList();
+    if (storedFavouriteProducts != null) {
+      favouriteList.value = storedFavouriteProducts
+          .map((e) => ProductsModel.fromJson(e))
+          .toList();
     }
     super.onInit();
   }
@@ -34,7 +40,7 @@ class ProductsController extends GetxController {
   }
 
   //logic for favourites screen
-  Future<void> manageFavouriteList(int productId) async{
+  Future<void> manageFavouriteList(int productId) async {
     //we need to add each item to the list with its id
     int redundantItem = //to get index
         favouriteList.indexWhere((element) => element.id == productId);
@@ -53,4 +59,21 @@ class ProductsController extends GetxController {
   //to find any list item in the list
   bool isFavourite(int productId) =>
       favouriteList.any((element) => element.id == productId);
+
+  //search bar logic
+  void addToSearchList(String searchName) {
+    //to search if title or price is sub text of search text
+    searchList.value = productList
+        .where((search) =>
+            search.title.contains(searchName.toLowerCase()) ||
+            search.price.toString().contains(searchName.toLowerCase()))
+        .toList();
+    update();
+  }
+
+  void clearSearch() {
+    searchController.clear();
+    addToSearchList('');
+    update();
+  }
 }

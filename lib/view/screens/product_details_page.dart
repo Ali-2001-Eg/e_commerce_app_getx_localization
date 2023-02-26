@@ -19,6 +19,7 @@ class ProductsDetailsScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: context.theme.backgroundColor,
         body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

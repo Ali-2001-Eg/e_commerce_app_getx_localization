@@ -24,30 +24,54 @@ class CardItems extends StatelessWidget {
         ));
       } else {
         return Expanded(
-          child: GridView.builder(
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.only(left: 10, right: 10),
-              itemCount: controller.productList.length,
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                childAspectRatio: 0.75,
-                mainAxisSpacing: 15,
-                crossAxisSpacing: 6,
-                maxCrossAxisExtent: 250,
-                // mainAxisExtent: 300,
-              ),
-              itemBuilder: (context, index) => _buildCardItems(
-                  imgPath: controller.productList[index].image,
-                  price: controller.productList[index].price,
-                  rate: controller.productList[index].rating.rate,
-                  productId: controller.productList[index].id,
-                  productsModel: controller.productList[index],
-                  onTap: () {
-                    Get.to(
-                      () => ProductsDetailsScreen(
-                        productsModel: controller.productList[index],
-                      ),
-                    );
-                  })),
+          child: (controller.searchList.isEmpty && controller.searchController.text.isNotEmpty)
+              ? Get.isDarkMode
+                  ? Image.asset('assets/images/search_empty_dark.png')
+                  : Image.asset('assets/images/search_empry_light.png')
+              : GridView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  itemCount: controller.searchList.isEmpty
+                      ? controller.productList.length
+                      : controller.searchList.length,
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    childAspectRatio: 0.75,
+                    mainAxisSpacing: 15,
+                    crossAxisSpacing: 6,
+                    maxCrossAxisExtent: 250,
+                    // mainAxisExtent: 300,
+                  ),
+                  itemBuilder: (context, index) {
+                    if (controller.searchController.text.isEmpty) {
+                      return _buildCardItems(
+                          imgPath: controller.productList[index].image,
+                          price: controller.productList[index].price,
+                          rate: controller.productList[index].rating.rate,
+                          productId: controller.productList[index].id,
+                          productsModel: controller.productList[index],
+                          onTap: () {
+                            Get.to(
+                              () => ProductsDetailsScreen(
+                                productsModel: controller.productList[index],
+                              ),
+                            );
+                          });
+                    } else {
+                      return _buildCardItems(
+                          imgPath: controller.searchList[index].image,
+                          price: controller.searchList[index].price,
+                          rate: controller.searchList[index].rating.rate,
+                          productId: controller.searchList[index].id,
+                          productsModel: controller.searchList[index],
+                          onTap: () {
+                            Get.to(
+                              () => ProductsDetailsScreen(
+                                productsModel: controller.searchList[index],
+                              ),
+                            );
+                          });
+                    }
+                  }),
         );
       }
     });
