@@ -1,85 +1,74 @@
 import 'package:e_commerce_app_with_firebase/logic/controllers/cart_controller.dart';
+import 'package:e_commerce_app_with_firebase/logic/controllers/category_controller.dart';
 import 'package:e_commerce_app_with_firebase/models/products_model.dart';
 import 'package:e_commerce_app_with_firebase/utils/theme.dart';
 import 'package:e_commerce_app_with_firebase/view/screens/product_details_page.dart';
 import 'package:e_commerce_app_with_firebase/view/widgets/text_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../logic/controllers/products_controller.dart';
 
-import '../../logic/controllers/products_controller.dart';
-
-class CardItems extends StatelessWidget {
-  CardItems({Key? key}) : super(key: key);
-  final ProductsController controller = Get.put(ProductsController());
+class CategoryItem extends StatelessWidget {
+  CategoryItem({Key? key, required this.categoryName}) : super(key: key);
+  final String categoryName;
+  final controller = Get.find<ProductsController>();
+  final categoryController = Get.find<CategoryController>();
   final cartController = Get.find<CartController>();
-
   @override
   Widget build(BuildContext context) {
-    print(controller.productList.length);
-    return Obx(() {
-      if (controller.isLoading.value) {
-        return Center(
-          child: SizedBox(
-              height: 70,
-              width: 70,
-              child: CircularProgressIndicator(
-                  color: Colors.white70,
-                  backgroundColor: Get.isDarkMode ? pinkClr : mainColor)),
-        );
-
-      } else {
-        return Expanded(
-          child: (controller.searchList.isEmpty && controller.searchController.text.isNotEmpty)
-              ? Get.isDarkMode
-                  ? Image.asset('assets/images/search_empty_dark.png')
-                  : Image.asset('assets/images/search_empry_light.png')
-              : GridView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  itemCount: controller.searchList.isEmpty
-                      ? controller.productList.length
-                      : controller.searchList.length,
-                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    childAspectRatio: 0.75,
-                    mainAxisSpacing: 15,
-                    crossAxisSpacing: 6,
-                    maxCrossAxisExtent: 250,
-                    // mainAxisExtent: 300,
-                  ),
-                  itemBuilder: (context, index) {
-                    if (controller.searchController.text.isEmpty) {
-                      return _buildCardItems(
-                          imgPath: controller.productList[index].image,
-                          price: controller.productList[index].price,
-                          rate: controller.productList[index].rating.rate,
-                          productId: controller.productList[index].id,
-                          productsModel: controller.productList[index],
-                          onTap: () {
-                            Get.to(
-                              () => ProductsDetailsScreen(
-                                productsModel: controller.productList[index],
-                              ),
-                            );
-                          });
-                    } else {
-                      return _buildCardItems(
-                          imgPath: controller.searchList[index].image,
-                          price: controller.searchList[index].price,
-                          rate: controller.searchList[index].rating.rate,
-                          productId: controller.searchList[index].id,
-                          productsModel: controller.searchList[index],
-                          onTap: () {
-                            Get.to(
-                              () => ProductsDetailsScreen(
-                                productsModel: controller.searchList[index],
-                              ),
-                            );
-                          });
-                    }
-                  }),
-        );
-      }
-    });
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: context.theme.backgroundColor,
+        appBar: AppBar(
+          title: Text(categoryName),
+          centerTitle: true,
+          backgroundColor: Get.isDarkMode ? pinkClr : mainColor,
+        ),
+        body: Obx(
+          () {
+            if (categoryController.isCategoryProductsLoading.value) {
+              return Center(
+                child: SizedBox(
+                    height: 70,
+                    width: 70,
+                    child: CircularProgressIndicator(
+                        color: Colors.white70,
+                        backgroundColor: Get.isDarkMode ? pinkClr : mainColor)),
+              );
+            } else {
+              return GridView.builder(
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                itemCount: categoryController.categoryList.length,
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  childAspectRatio: 0.75,
+                  mainAxisSpacing: 15,
+                  crossAxisSpacing: 6,
+                  maxCrossAxisExtent: 250,
+                  // mainAxisExtent: 300,
+                ),
+                itemBuilder: (context, index) {
+                  return _buildCardItems(
+                      imgPath: categoryController.categoryList[index].image,
+                      price: categoryController.categoryList[index].price,
+                      rate: categoryController.categoryList[index].rating.rate,
+                      productId: categoryController.categoryList[index].id,
+                      productsModel: categoryController.categoryList[index],
+                      onTap: () {
+                        Get.to(
+                          () => ProductsDetailsScreen(
+                            productsModel:
+                                categoryController.categoryList[index],
+                          ),
+                        );
+                      });
+                },
+              );
+            }
+          },
+        ),
+      ),
+    );
   }
 
   Widget _buildCardItems({

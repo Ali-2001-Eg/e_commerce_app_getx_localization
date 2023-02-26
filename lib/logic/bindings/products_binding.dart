@@ -1,3 +1,4 @@
+import 'package:e_commerce_app_with_firebase/logic/controllers/category_controller.dart';
 import 'package:e_commerce_app_with_firebase/logic/controllers/products_controller.dart';
 import 'package:get/get.dart';
 
@@ -8,5 +9,6 @@ class ProductsBinding extends Bindings{
   void dependencies() {
     Get.put(ProductsController());
     Get.lazyPut(() => CartController());
+    Get.put(CategoryController());
   }
 }

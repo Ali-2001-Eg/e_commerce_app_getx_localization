@@ -98,9 +98,9 @@ class CartProductCard extends StatelessWidget {
                   onPressed: () {
                     Get.defaultDialog(
                       backgroundColor: Colors.grey,
-                      title: 'Log out From App',
+                      title: 'Remove Item',
                       titleStyle: const TextStyle(fontSize: 18,color: Colors.white,fontWeight: FontWeight.bold),
-                      middleText: 'Are you sure you want to log out',
+                      middleText: 'Are you sure you want to remove this item from your cart',
                       middleTextStyle: const TextStyle(fontSize: 18,color: Colors.black,fontWeight: FontWeight.bold),
                       radius: 10,
                       textCancel: ' No ',
