@@ -20,7 +20,7 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      backgroundColor: context.theme. backgroundColor,
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -42,7 +42,7 @@ class SignInScreen extends StatelessWidget {
                             top: 100,
                             left: MediaQuery.of(context).size.width / 2.6),
                         color: Colors.purple,
-                        child: TextUtils(
+                        child: const TextUtils(
                           fontSize: 50,
                           text: 'Login',
                           color: Colors.white,
@@ -117,7 +117,7 @@ class SignInScreen extends StatelessWidget {
                         Expanded(child: Container()),
                         TextButton(
                             onPressed: () => Get.toNamed(Routes.forgotPassword),
-                            child: TextUtils(
+                            child: const TextUtils(
                                 text: 'Forgot Password?',
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
@@ -125,7 +125,7 @@ class SignInScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 10,),
-                    TextUtils(text: 'OR SIGN WITH',color: Colors.purple,fontWeight: FontWeight.bold,fontSize: 30),
+                    const TextUtils(text: 'OR SIGN WITH',color: Colors.purple,fontWeight: FontWeight.bold,fontSize: 30),
                     const SizedBox(height: 20,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -187,7 +187,7 @@ class SignInScreen extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 40, vertical: 12),
                             ),
-                            child: TextUtils(
+                            child: const TextUtils(
                               text: 'Sign In',
                               color: Colors.white,
                               fontSize: 22,
@@ -199,11 +199,12 @@ class SignInScreen extends StatelessWidget {
                         Expanded(
                             child: TextButton(
                                 onPressed: () => Get.toNamed(Routes.register),
-                                child: TextUtils(
+                                child: const TextUtils(
                                   text: 'Don\'t have an account ?',
                                   color: Colors.purple,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20,
+                                  textOverFlow: TextOverflow.visible,
                                 )))
                       ],
                     ),

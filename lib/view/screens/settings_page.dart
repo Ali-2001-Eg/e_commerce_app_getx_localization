@@ -5,67 +5,51 @@ import 'package:e_commerce_app_with_firebase/view/widgets/text_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../widgets/settings/dark_mode_widget.dart';
+import '../widgets/settings/image_profile_widget.dart';
+import '../widgets/settings/language_widget.dart';
+import '../widgets/settings/logout_widget.dart';
+
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      backgroundColor: context.theme.backgroundColor,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        backgroundColor: context.theme.backgroundColor,
+        body: ListView(
+
+          padding: const EdgeInsets.all( 25),
           children: [
-            IconButton(
-              icon: Icon(
-                //to update icons we must use scaffold and background
-                Get.isDarkMode
-                    ? Icons.brightness_2_outlined
-                    : Icons.dark_mode_rounded,
-                color: Get.isDarkMode ? Colors.white : Colors.black,
-                size: 30,
-              ),
-              onPressed: () {
-                //to toggle between two themes
-                ThemeController().changeTheme();
-              },
+            const ProfileWidget(),
+            Divider(
+              color: Get.isDarkMode ? Colors.white : Colors.grey,
+              thickness: 2,
             ),
             const SizedBox(
-              height: 40,
+              height: 20,
             ),
-            GetBuilder<AuthController>(builder: (controller) {
-              return ElevatedButton(
-                  onPressed: () {
-                    Get.defaultDialog(
-                      backgroundColor: Colors.grey,
-                      title: 'Log out From App',
-                      titleStyle: const TextStyle(fontSize: 18,color: Colors.white,fontWeight: FontWeight.bold),
-                      middleText: 'Are you sure you want to log out',
-                       middleTextStyle: const TextStyle(fontSize: 18,color: Colors.black,fontWeight: FontWeight.bold),
-                      radius: 10,
-                      textCancel: ' No ',
-                      cancelTextColor: Colors.white,
-                      textConfirm: ' Yes ',
-                      confirmTextColor: Colors.white,
-                      onCancel: () => Navigator.pop(context),
-                      onConfirm: () =>  controller.signOut(),
-                      buttonColor: Get.isDarkMode?pinkClr:mainColor,
-
-                    );
-
-                  },
-                  style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 20)),
-                  child: TextUtils(
-                      text: 'Sign out',
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white));
-            })
+            TextUtils(
+              text: 'general'.toUpperCase(),
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Get.isDarkMode ? pinkClr : mainColor,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+             DarkModeWidget(),
+            const SizedBox(
+              height: 20,
+            ),
+             LanguageWidget(),
+            const SizedBox(
+              height: 20,
+            ),
+             LogoutWidget(),
           ],
-        ),
-      ),
-    );
+        )
+        );
   }
 }

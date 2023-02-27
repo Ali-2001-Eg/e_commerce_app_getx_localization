@@ -6,7 +6,7 @@ class ThemeController {
 
   final GetStorage boxStorage = GetStorage();
 
-  void changeTheme() {
+   changeTheme() {
     Get.changeThemeMode(
         getThemeDataFromBox() ?
         ThemeMode.light : ThemeMode.dark

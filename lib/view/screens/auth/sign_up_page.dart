@@ -24,7 +24,7 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: context.theme. backgroundColor,
+        backgroundColor: Colors.white,
         resizeToAvoidBottomInset: true,
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -46,7 +46,7 @@ class SignUpScreen extends StatelessWidget {
                               top: 100,
                               left: MediaQuery.of(context).size.width / 3),
                           color: Colors.purple,
-                          child: TextUtils(
+                          child: const TextUtils(
                             fontSize: 40,
                             text: 'Register',
                             color: Colors.white,
@@ -180,24 +180,26 @@ class SignUpScreen extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 40, vertical: 12),
                                 ),
-                                child: TextUtils(
+                                child: const TextUtils(
                                   text: 'Sign Up',
                                   color: Colors.white,
                                   fontSize: 22,
                                   fontWeight: FontWeight.w700,
                                 ))
                           ,
-                          SizedBox(
+                          const SizedBox(
                             width: 15,
                           ),
                           Expanded(
                               child: TextButton(
                                   onPressed: () => Get.toNamed(Routes.login),
-                                  child: TextUtils(
+                                  child: const TextUtils(
                                     text: 'Already have an account?',
                                     color: Colors.purple,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20,
+                                    textOverFlow: TextOverflow.visible,
+
                                   )))
                         ],
                       ),

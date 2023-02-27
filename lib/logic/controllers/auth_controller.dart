@@ -16,8 +16,9 @@ class AuthController extends GetxController {
 
   FirebaseAuth auth = FirebaseAuth.instance;
 
-  var displayUserName = '';
-  var displayUserPhoto = '';
+  var displayUserName = ''.obs;
+  var displayUserPhoto = ''.obs;
+  var displayUserEmail = ''.obs;
 
   var googleSignIn = GoogleSignIn();
   FacebookModel? facebookModel;
@@ -34,6 +35,17 @@ class AuthController extends GetxController {
     isConfirmedShown.value = !isConfirmedShown.value;
   }
 
+  User? get userProfile => auth.currentUser;
+
+  @override
+  void onInit() {
+    //required to view user data
+    displayUserName.value = userProfile?.displayName ?? '' ;
+    displayUserEmail.value = userProfile?.email ?? '' ;
+    displayUserPhoto.value = userProfile?.photoURL ?? '' ;
+    super.onInit();
+  }
+
   void signUpUsingFirebase(
       {required String email,
       required String password,
@@ -46,7 +58,7 @@ class AuthController extends GetxController {
       )
           .then((value) {
         //to send data after registration success
-        displayUserName = name;
+        displayUserName.value = name;
         auth.currentUser!.updateDisplayName(name);
       });
       update();
@@ -130,9 +142,18 @@ class AuthController extends GetxController {
     // Trigger the authentication flow
     try {
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-      displayUserName = googleUser!.displayName!;
-      displayUserPhoto = googleUser.photoUrl!;
-      print(googleUser.email);
+      displayUserName.value = googleUser!.displayName!;
+      displayUserPhoto.value = googleUser.photoUrl!;
+      displayUserEmail.value = googleUser.email;
+      // print(googleUser.email);
+      GoogleSignInAuthentication googleSignInAuthentication =
+      await googleUser.authentication;
+      //if user signed in with google his data will be stored in firebase to view it in the screen
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        idToken:googleSignInAuthentication.idToken,
+        accessToken: googleSignInAuthentication.accessToken,
+      );
+      await auth.signInWithCredential(credential);
       isSignedIn = true;
       authBox.write('auth', isSignedIn);
       update();
@@ -172,8 +193,9 @@ class AuthController extends GetxController {
       await auth.signOut();
       await googleSignIn.signOut();
       // await FacebookAuth.i.logOut();
-      displayUserName = '';
-      displayUserPhoto = '';
+      displayUserName.value = '';
+      displayUserPhoto.value = '';
+      displayUserEmail.value = '';
       isSignedIn = false;
       authBox.remove('auth');
       update();

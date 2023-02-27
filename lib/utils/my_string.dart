@@ -4,3 +4,11 @@ String validationEmail =
 String validationName = r'^[a-z A-Z]+$';
 
 String baseUrl = 'https://fakestoreapi.com';
+
+String english = 'English 🇬🇧 ';
+String arabic = 'Arabic 🇸🇦';
+String french = 'French 🇫🇷';
+
+String ara = 'ar';
+String eng = 'en';
+String fra = 'fr';
