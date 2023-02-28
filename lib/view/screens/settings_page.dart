@@ -22,7 +22,7 @@ class SettingsScreen extends StatelessWidget {
 
           padding: const EdgeInsets.all( 25),
           children: [
-            const ProfileWidget(),
+             ProfileWidget(),
             Divider(
               color: Get.isDarkMode ? Colors.white : Colors.grey,
               thickness: 2,

@@ -2,6 +2,7 @@ import 'package:e_commerce_app_with_firebase/view/widgets/text_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../routes/app_routes.dart';
 import '../../../utils/theme.dart';
 
 class AddToCart extends StatelessWidget {
@@ -41,6 +42,7 @@ class AddToCart extends StatelessWidget {
               child: ElevatedButton.icon(
 
                   onPressed: () {
+                    Get.toNamed(Routes.payments);
 
                   },
                   style: ElevatedButton.styleFrom(

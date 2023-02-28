@@ -1,3 +1,4 @@
+import 'package:e_commerce_app_with_firebase/routes/app_routes.dart';
 import 'package:e_commerce_app_with_firebase/view/widgets/text_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -58,7 +59,7 @@ class CartTotal extends StatelessWidget {
               child: ElevatedButton.icon(
 
                   onPressed: () {
-
+                  Get.toNamed(Routes.payments);
                   },
                   style: ElevatedButton.styleFrom(
 
